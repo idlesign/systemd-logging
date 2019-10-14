@@ -2,7 +2,7 @@ systemd-logging
 ===============
 https://github.com/idlesign/systemd-logging
 
-|release| |lic|
+|release| |lic| |ci| |coverage|
 
 .. |release| image:: https://img.shields.io/pypi/v/systemd-logging.svg
     :target: https://pypi.python.org/pypi/systemd-logging
