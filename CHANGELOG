@@ -2,7 +2,6 @@ systemd-logging changelog
 =========================
 
 
-Unreleased
-----------
+v0.1.0 [2019-10-14]
+-------------------
 + Basic functionality.
-
