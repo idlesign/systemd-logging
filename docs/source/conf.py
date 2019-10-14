@@ -25,6 +25,7 @@ from systemdlogging import VERSION
 # E.g. it could be useful for http://readthedocs.org/
 MODULES_TO_MOCK = [
     'ctyped',
+    'ctyped.toolbox',
 ]
 
 
