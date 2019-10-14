@@ -24,8 +24,9 @@ Description
 
 **Requires Python 3.6+**
 
-* No need to compile (pure Python), uses ``libsystemd.so``
-* Simplified configuration
+* No need to compile (pure Python), uses ``libsystemd.so``.
+* Simplified configuration.
+* Just logging. Nothing more.
 
 
 Usage

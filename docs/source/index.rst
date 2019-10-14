@@ -9,9 +9,9 @@ Description
 
 *Simplifies logging for systemd*
 
-
-* No need to compile (pure Python), uses ``libsystemd.so``
-* Simplified configuration
+* No need to compile (pure Python), uses ``libsystemd.so``.
+* Simplified configuration.
+* Just logging. Nothing more.
 
 
 
