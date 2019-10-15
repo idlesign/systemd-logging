@@ -56,7 +56,6 @@ def test_basic(monkeypatch):
     assert entry['LOGGER'] == 'mysystemdlogger'
     assert entry['THREAD_ID']
     assert entry['THREAD_NAME']
-    assert entry['PROCESS_ID']
     assert entry['PROCESS_NAME']
     assert 'ValueError: durutum' in entry['TRACEBACK']
     assert ', line 21, in raiseme' in entry['STACK']
