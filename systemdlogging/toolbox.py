@@ -67,7 +67,6 @@ class SystemdHandler(logging.Handler):
         * LOGGER - Logger name
         * THREAD_ID - Thread ID if any
         * THREAD_NAME - Thread name if any
-        * PROCESS_ID - Process ID
         * PROCESS_NAME - Process name if any
         * PRIORITY - Priority based on logging level
 
@@ -77,6 +76,9 @@ class SystemdHandler(logging.Handler):
         * MESSAGE_ID - Message ID (if context.message_id=True)
 
     """
+
+    syslog_id: str = ''
+    """SYSLOG_IDENTIFIER to add to message. If not set command name is used."""
 
     def emit(self, record: logging.LogRecord):
 
@@ -90,7 +92,6 @@ class SystemdHandler(logging.Handler):
             'LOGGER': record.name,
             'THREAD_ID': record.thread,
             'THREAD_NAME': record.threadName,
-            'PROCESS_ID': record.process,
             'PROCESS_NAME': record.processName,
         }
 
@@ -101,8 +102,11 @@ class SystemdHandler(logging.Handler):
 
             stack_info = record.stack_info
             if stack_info:
-
                 context['STACK'] = self.formatter.formatStack(stack_info)
+
+            syslog_id = self.syslog_id
+            if syslog_id:
+                context['SYSLOG_IDENTIFIER'] = syslog_id
 
             msg = self.format(record)
 
@@ -137,14 +141,17 @@ class SystemdFormatter(logging.Formatter):
         return self.formatMessage(record)
 
 
-def init_systemd_logging(*, logger: Optional[logging.Logger] = None):
+def init_systemd_logging(*, logger: Optional[logging.Logger] = None, syslog_id: str = ''):
     """Initializes logging to send log messages to systemd.
 
     :param logger: Logger to attach systemd logging handler to.
         If not set handler is attached to a root logger.
 
+    :param syslog_id: Value to be used in SYSLOG_IDENTIFIER message field.
+
     """
     handler = SystemdHandler()
+    handler.syslog_id = syslog_id
     handler.setFormatter(SystemdFormatter())
 
     logger = logger or logging.getLogger()
