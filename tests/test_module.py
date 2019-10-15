@@ -23,7 +23,7 @@ def raiseme():
 
 def test_basic(monkeypatch):
 
-    init_systemd_logging()
+    init_systemd_logging(syslog_id='logtest')
 
     send_log = []
 
@@ -54,6 +54,7 @@ def test_basic(monkeypatch):
     assert entry['CODE_FUNC'] == 'raiseme'
     assert entry['CODE_MODULE'] == 'test_module'
     assert entry['LOGGER'] == 'mysystemdlogger'
+    assert entry['SYSLOG_IDENTIFIER'] == 'logtest'
     assert entry['THREAD_ID']
     assert entry['THREAD_NAME']
     assert entry['PROCESS_NAME']
