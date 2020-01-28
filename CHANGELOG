@@ -2,8 +2,8 @@ systemd-logging changelog
 =========================
 
 
-Unreleased
-----------
+v0.3.0 [2020-01-28]
+-------------------
 + init_systemd_logging() now tries to detect systemd and returns boolean.
 
 
