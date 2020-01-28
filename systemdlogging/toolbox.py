@@ -1,4 +1,5 @@
 import logging
+import os
 import syslog
 import uuid
 from typing import Optional
@@ -141,18 +142,39 @@ class SystemdFormatter(logging.Formatter):
         return self.formatMessage(record)
 
 
-def init_systemd_logging(*, logger: Optional[logging.Logger] = None, syslog_id: str = ''):
+def check_for_systemd() -> bool:
+    """Checks whether current process is run under systemd
+    (and thus its output is connected to journald).
+
+    """
+    return bool(os.environ.get('INVOCATION_ID'))  # Works with systemd v232+
+
+
+def init_systemd_logging(*, logger: Optional[logging.Logger] = None, syslog_id: str = '') -> bool:
     """Initializes logging to send log messages to systemd.
+
+    Returns boolean indicating initialization went fine (see also `check_for_systemd()`).
+
+    If it wasn't one may either to fallback to another logging handler
+    or leave it as it is possibly sacrificing some log context.
 
     :param logger: Logger to attach systemd logging handler to.
         If not set handler is attached to a root logger.
 
     :param syslog_id: Value to be used in SYSLOG_IDENTIFIER message field.
 
-    """
-    handler = SystemdHandler()
-    handler.syslog_id = syslog_id
-    handler.setFormatter(SystemdFormatter())
+    :param silent: If `True`, no exception is raised if journald is not available.
+        Default: `False`.
 
-    logger = logger or logging.getLogger()
-    logger.addHandler(handler)
+    """
+    systemd_ok = check_for_systemd()
+
+    if systemd_ok:
+        handler = SystemdHandler()
+        handler.syslog_id = syslog_id
+        handler.setFormatter(SystemdFormatter())
+
+        logger = logger or logging.getLogger()
+        logger.addHandler(handler)
+
+    return systemd_ok
