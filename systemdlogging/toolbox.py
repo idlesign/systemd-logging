@@ -163,9 +163,6 @@ def init_systemd_logging(*, logger: Optional[logging.Logger] = None, syslog_id: 
 
     :param syslog_id: Value to be used in SYSLOG_IDENTIFIER message field.
 
-    :param silent: If `True`, no exception is raised if journald is not available.
-        Default: `False`.
-
     """
     systemd_ok = check_for_systemd()
 
