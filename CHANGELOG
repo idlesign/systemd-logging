@@ -2,6 +2,11 @@ systemd-logging changelog
 =========================
 
 
+Unreleased
+----------
++ init_systemd_logging() now tries to detect systemd and returns boolean.
+
+
 v0.2.0 [2019-10-15]
 -------------------
 + Added an option to set SYSLOG_IDENTIFIER.
