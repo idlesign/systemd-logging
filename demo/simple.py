@@ -1,3 +1,4 @@
+#! /usr/bin/env python3
 """
 Demo, showing `systemd-logging` in action.
 
@@ -21,7 +22,8 @@ import logging
 
 from systemdlogging.toolbox import init_systemd_logging
 
-init_systemd_logging(syslog_id='logtest')
+if not init_systemd_logging(syslog_id='logtest'):
+    raise ProcessLookupError("It seems this process is not run under systemd.")
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
