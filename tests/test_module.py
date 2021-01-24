@@ -52,10 +52,12 @@ def test_basic(monkeypatch):
     assert len(send_log) == 1
     entry = send_log[0]
 
-    assert entry['MESSAGE'] == 'My message'
+    assert entry['MESSAGE'] == '%s'
+    assert entry['My message'] == ''
+
     assert entry['PRIORITY'] == '3'
     assert entry['CODE_FILE'].endswith('tests/test_module.py')
-    assert entry['CODE_LINE'] == '22'
+    assert entry['CODE_LINE'] == '16'
     assert entry['CODE_FUNC'] == 'raiseme'
     assert entry['CODE_MODULE'] == 'test_module'
     assert entry['LOGGER'] == 'mysystemdlogger'
@@ -64,7 +66,7 @@ def test_basic(monkeypatch):
     assert entry['THREAD_NAME']
     assert entry['PROCESS_NAME']
     assert 'ValueError: durutum' in entry['TRACEBACK']
-    assert ', line 22, in raiseme' in entry['STACK']
+    assert ', line 16, in raiseme' in entry['STACK']
     assert entry['MESSAGE_ID']
     assert entry['FIELD1'] == 'one'
     assert entry['FIELD2'] == 'two'
