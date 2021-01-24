@@ -1,7 +1,10 @@
 import logging
 import os
+from sys import version_info
 
 from systemdlogging.toolbox import init_systemd_logging
+
+LINE_NO = '16' if version_info >= (3, 8) else '22'
 
 
 def raiseme():
@@ -57,7 +60,7 @@ def test_basic(monkeypatch):
 
     assert entry['PRIORITY'] == '3'
     assert entry['CODE_FILE'].endswith('tests/test_module.py')
-    assert entry['CODE_LINE'] == '16'
+    assert entry['CODE_LINE'] == LINE_NO
     assert entry['CODE_FUNC'] == 'raiseme'
     assert entry['CODE_MODULE'] == 'test_module'
     assert entry['LOGGER'] == 'mysystemdlogger'
@@ -66,7 +69,7 @@ def test_basic(monkeypatch):
     assert entry['THREAD_NAME']
     assert entry['PROCESS_NAME']
     assert 'ValueError: durutum' in entry['TRACEBACK']
-    assert ', line 16, in raiseme' in entry['STACK']
+    assert f', line {LINE_NO}, in raiseme' in entry['STACK']
     assert entry['MESSAGE_ID']
     assert entry['FIELD1'] == 'one'
     assert entry['FIELD2'] == 'two'
