@@ -4,7 +4,7 @@ from sys import version_info
 
 from systemdlogging.toolbox import init_systemd_logging
 
-LINE_NO = '16' if version_info >= (3, 8) else '22'
+LINE_NO = '19' if version_info >= (3, 8) else '25'
 
 
 def raiseme():
