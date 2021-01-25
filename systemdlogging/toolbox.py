@@ -32,13 +32,16 @@ def log_message(*, level: int, msg: str, context: Optional[dict] = None) -> bool
 
     """
     args = {
-        'MESSAGE': msg,
         'PRIORITY': PRIORITY_MAP.get(level, level),
     }
 
     args.update(context or {})
 
-    return send(*[f'{key}={val}'.encode() for key, val in args.items()], None) == 0
+    return send(
+        b'MESSAGE=%s', msg.encode(),  # Prevents %-formatting in messages.
+        *[f'{key}={val}'.encode() for key, val in args.items()],
+        None
+    ) == 0
 
 
 class SystemdHandler(logging.Handler):
