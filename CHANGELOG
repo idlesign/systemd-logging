@@ -2,8 +2,8 @@ systemd-logging changelog
 =========================
 
 
-Unreleased
-----------
+v0.3.1 [2021-01-25]
+-------------------
 * Proper % handling in messages (see #3).
 
 
