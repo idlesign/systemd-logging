@@ -11,7 +11,7 @@ https://github.com/idlesign/systemd-logging
     :target: https://pypi.python.org/pypi/systemd-logging
 
 .. |ci| image:: https://img.shields.io/travis/idlesign/systemd-logging/master.svg
-    :target: https://travis-ci.org/idlesign/systemd-logging
+    :target: https://travis-ci.com/idlesign/systemd-logging
 
 .. |coverage| image:: https://img.shields.io/coveralls/idlesign/systemd-logging/master.svg
     :target: https://coveralls.io/r/idlesign/systemd-logging
