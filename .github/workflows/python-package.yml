@@ -31,7 +31,7 @@ jobs:
       run: |
         coverage run --source=systemdlogging setup.py test
     - name: Send coverage
-      env: 
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        coveralls
+      uses: coverallsapp/github-action@v1.1.2
+      with:
+        github-token: ${{ github.token }}
+            coveralls
