@@ -27,6 +27,8 @@ def raiseme():
 
 def test_basic(monkeypatch):
 
+    os.environ['INVOCATION_ID'] = ''
+
     assert not init_systemd_logging(syslog_id='logtest')
 
     os.environ['INVOCATION_ID'] = 'dummy-invocation-id'

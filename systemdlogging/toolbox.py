@@ -4,8 +4,7 @@ import syslog
 import uuid
 from typing import Optional
 
-from .backend_ctyped import send
-
+from .backend_ctyped import send, send_stub
 
 PRIORITY_MAP = {
     logging.CRITICAL: syslog.LOG_CRIT,
@@ -24,7 +23,6 @@ def log_message(*, level: int, msg: str, context: Optional[dict] = None) -> bool
 
     Natively supported fields:
         http://0pointer.de/public/systemd-man/systemd.journal-fields.html
-
 
     :param level: Logging level.
     :param msg: Message text to send.
@@ -146,11 +144,12 @@ class SystemdFormatter(logging.Formatter):
 
 
 def check_for_systemd() -> bool:
-    """Checks whether current process is run under systemd
-    (and thus its output is connected to journald).
+    """Checks whether systemd library is available and
+    the current process is run under systemd (and thus its output
+    is connected to journald).
 
     """
-    return bool(os.environ.get('INVOCATION_ID'))  # Works with systemd v232+
+    return (send is not send_stub) and bool(os.environ.get('INVOCATION_ID'))  # Works with systemd v232+
 
 
 def init_systemd_logging(*, logger: Optional[logging.Logger] = None, syslog_id: str = '') -> bool:
