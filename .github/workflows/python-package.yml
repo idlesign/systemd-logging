@@ -32,5 +32,4 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.github_token }}
       run: |
         coverage run --source=systemdlogging setup.py test
-        tree
-        coveralls
+        coveralls --service=github
