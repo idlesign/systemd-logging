@@ -30,8 +30,12 @@ jobs:
     - name: Run tests
       run: |
         coverage run --source=systemdlogging setup.py test
+    - name: See tree
+      run: |
+        tree
     - name: Send coverage
       uses: coverallsapp/github-action@v1.1.2
       with:
-        github-token: ${{ github.token }}
+        github-token: ${{ secrets.github_token }}
+        path-to-lcov: ./output/coverage/lcov.info
             coveralls
