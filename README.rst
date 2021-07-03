@@ -2,16 +2,13 @@ systemd-logging
 ===============
 https://github.com/idlesign/systemd-logging
 
-|release| |lic| |ci| |coverage|
+|release| |lic| |coverage|
 
 .. |release| image:: https://img.shields.io/pypi/v/systemd-logging.svg
     :target: https://pypi.python.org/pypi/systemd-logging
 
 .. |lic| image:: https://img.shields.io/pypi/l/systemd-logging.svg
     :target: https://pypi.python.org/pypi/systemd-logging
-
-.. |ci| image:: https://img.shields.io/travis/idlesign/systemd-logging/master.svg
-    :target: https://travis-ci.com/idlesign/systemd-logging
 
 .. |coverage| image:: https://img.shields.io/coveralls/idlesign/systemd-logging/master.svg
     :target: https://coveralls.io/r/idlesign/systemd-logging
