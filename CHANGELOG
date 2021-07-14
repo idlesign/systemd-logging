@@ -4,6 +4,7 @@ systemd-logging changelog
 
 Unreleased
 ----------
+* Celebrating 1.0.0.
 * CtypedException is now hidden to improve plugability (see #5).
 
 
