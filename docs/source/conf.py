@@ -26,6 +26,7 @@ from systemdlogging import VERSION
 MODULES_TO_MOCK = [
     'ctyped',
     'ctyped.toolbox',
+    'ctyped.exceptions',
 ]
 
 
