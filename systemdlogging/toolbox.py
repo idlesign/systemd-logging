@@ -30,14 +30,16 @@ def log_message(*, level: int, msg: str, context: Optional[dict] = None) -> bool
 
     """
     args = {
+        'MESSAGE': msg,
         'PRIORITY': PRIORITY_MAP.get(level, level),
     }
 
     args.update(context or {})
 
     return send(
-        b'MESSAGE=%s', msg.encode(),  # Prevents %-formatting in messages.
-        *[f'{key}={val}'.encode() for key, val in args.items()],
+        # brutally strip % in values to prevent segfaults
+        # while trying to format things like %s, %d, etc.
+        *[f'{key}={val}'.replace("%", "").encode() for key, val in args.items()],
         None
     ) == 0
 

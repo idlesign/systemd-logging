@@ -12,7 +12,7 @@ def raiseme():
     logger.setLevel(logging.DEBUG)
 
     try:
-        raise ValueError('durutum')
+        raise ValueError('durutum %s yes')  # this line will be in a traceback with %
 
     except ValueError:
 
@@ -23,6 +23,8 @@ def raiseme():
                 'FIELD2': 'two',
             }
         }, stack_info=True)
+
+    return True
 
 
 def test_basic(monkeypatch):
@@ -52,14 +54,15 @@ def test_basic(monkeypatch):
 
     monkeypatch.setattr('systemdlogging.toolbox.send', send_mock)
 
-    raiseme()
+    assert raiseme()
 
     assert len(send_log) == 1
     entry = send_log[0]
 
-    assert entry['MESSAGE'] == '%s'
-    assert entry['My message'] == ''
+    for val in entry.values():
+        assert '%s' not in val
 
+    assert entry['MESSAGE'] == 'My message'
     assert entry['PRIORITY'] == '3'
     assert entry['CODE_FILE'].endswith('tests/test_module.py')
     assert entry['CODE_LINE'] == LINE_NO
@@ -70,7 +73,7 @@ def test_basic(monkeypatch):
     assert entry['THREAD_ID']
     assert entry['THREAD_NAME']
     assert entry['PROCESS_NAME']
-    assert 'ValueError: durutum' in entry['TRACEBACK']
+    assert 'ValueError: durutum s yes' in entry['TRACEBACK']
     assert f', line {LINE_NO}, in raiseme' in entry['STACK']
     assert entry['MESSAGE_ID']
     assert entry['FIELD1'] == 'one'
