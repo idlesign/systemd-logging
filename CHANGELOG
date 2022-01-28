@@ -2,8 +2,8 @@ systemd-logging changelog
 =========================
 
 
-Unreleased
-----------
+v1.0.1 [2022-01-28]
+-------------------
 * Prevent segfaults for values having format placeholders like %s (see #6).
 
 
