@@ -37,9 +37,9 @@ def log_message(*, level: int, msg: str, context: Optional[dict] = None) -> bool
     args.update(context or {})
 
     return send(
-        # brutally strip % in values to prevent segfaults
+        # escape % in values to prevent segfaults
         # while trying to format things like %s, %d, etc.
-        *[f'{key}={val}'.replace("%", "").encode() for key, val in args.items()],
+        *[f'{key}={val}'.replace('%', '%%').encode() for key, val in args.items()],
         None
     ) == 0
 

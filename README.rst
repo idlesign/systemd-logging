@@ -66,3 +66,18 @@ Documentation
 -------------
 
 https://systemd-logging.readthedocs.org/
+
+Debug runs
+~~~~~~~~~~
+
+1. Run your script with:
+
+  .. code-block::
+
+      $ sudo systemd-run -u debugme -t /usr/bin/python /home/my/testme.py
+
+2. Watch its journal with:
+
+  .. code-block::
+
+      $ journalctl -u debugme -f -o verbose
