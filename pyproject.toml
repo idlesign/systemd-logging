@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "systemd-logging"
+version = "1.1.0"
+authors = [
+    { name = "Igor `idle sign` Starikov", email = "idlesign@yandex.ru" },
+    { name = "N-Hoque", email = "Naimul_Hoque@outlook.com" },
+]
+urls = { github = 'https://github.com/idlesign/systemd-logging' }
+description = 'Simplifies logging for systemd'
+license = { file = "LICENSE" }
+readme = "README.rst"
+requires-python = ">=3.7"
+classifiers = [
+    # As in https://pypi.python.org/pypi?:action=list_classifiers
+    'Development Status :: 5 - Production/Stable',
+    'Operating System :: OS Independent',
+    'Programming Language :: Python',
+    'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3.6',
+    'Programming Language :: Python :: 3.7',
+    'Programming Language :: Python :: 3.8',
+    'Programming Language :: Python :: 3.9',
+    'Programming Language :: Python :: 3.10',
+    'Programming Language :: Python :: 3.11',
+    'Programming Language :: Python :: 3.12',
+    'Programming Language :: Python :: 3.13',
+    'License :: OSI Approved :: BSD License',
+]
+dependencies = ["ctyped>=0.8.0"]
+
+
+[dependency-groups]
+dev = ["pytest>=7.4.4"]
+
+[tool.setuptools.packages.find]
+exclude = ["docs*", "tests*", "demo*"]

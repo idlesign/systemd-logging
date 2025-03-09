@@ -1,10 +1,9 @@
-.project
-.pydevproject
-.idea
-.tox
 __pycache__
+.pytest_cache
+.venv
 *.pyc
 *.pyo
 *.egg-info
 docs/_build/
-
+build
+dist
