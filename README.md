@@ -1,83 +1,48 @@
-systemd-logging
-===============
-https://github.com/idlesign/systemd-logging
+# systemd-logging
 
-|release| |lic| |coverage|
+<https://github.com/idlesign/systemd-logging>
 
-.. |release| image:: https://img.shields.io/pypi/v/systemd-logging.svg
-    :target: https://pypi.python.org/pypi/systemd-logging
+[![release](https://img.shields.io/pypi/v/systemd-logging.svg)](https://pypi.python.org/pypi/systemd-logging)
+[![lic](https://img.shields.io/pypi/l/systemd-logging.svg)](https://pypi.python.org/pypi/systemd-logging)
+[![coverage](https://img.shields.io/coveralls/idlesign/systemd-logging/master.svg)](https://coveralls.io/r/idlesign/systemd-logging)
 
-.. |lic| image:: https://img.shields.io/pypi/l/systemd-logging.svg
-    :target: https://pypi.python.org/pypi/systemd-logging
-
-.. |coverage| image:: https://img.shields.io/coveralls/idlesign/systemd-logging/master.svg
-    :target: https://coveralls.io/r/idlesign/systemd-logging
-
-
-Description
------------
+## Description
 
 *Simplifies logging for systemd*
 
-**Requires Python 3.6+**
+**Requires Python 3.10+**
 
-* No need to compile (pure Python), uses ``libsystemd.so``.
+* No need to compile (pure Python), uses `libsystemd.so`.
 * Simplified configuration.
 * Just logging. Nothing more.
 
+## Usage
 
-Usage
------
+```python
+import logging
 
-.. code-block:: python
+from systemdlogging.toolbox import init_systemd_logging
 
-    import logging
+# This one line in most cases would be enough.
+# By default it attaches systemd logging handler to a root Python logger.
+init_systemd_logging()  # Returns True if initialization went fine.
 
-    from systemdlogging.toolbox import init_systemd_logging
+# Now you can use logging as usual.
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
 
-    # This one line in most cases would be enough.
-    # By default it attaches systemd logging handler to a root Python logger.
-    init_systemd_logging()  # Returns True if initialization went fine.
+logger.debug('My debug message')
 
-    # Now you can use logging as usual.
-    logger = logging.getLogger(__name__)
-    logger.setLevel(logging.DEBUG)
+try:
+    raise ValueError('Log me please')
 
-    logger.debug('My debug message')
-
-    try:
-        raise ValueError('Log me please')
-
-    except ValueError:
-        # Additional context can be passed in extra.context.
-        logger.exception('Something terrible just happened', extra={
-            'message_id': True,  # Generate message ID automatically.
-            'context': {
-                'FIELD1': 'one',
-                'FIELD2': 'two',
-            }
-        }, stack_info=True)
-
-
-Read the docs to find out more.
-
-
-Documentation
--------------
-
-https://systemd-logging.readthedocs.org/
-
-Debug runs
-~~~~~~~~~~
-
-1. Run your script with:
-
-  .. code-block::
-
-      $ sudo systemd-run -u debugme -t /usr/bin/python /home/my/testme.py
-
-2. Watch its journal with:
-
-  .. code-block::
-
-      $ journalctl -u debugme -f -o verbose
+except ValueError:
+    # Additional context can be passed in extra.context.
+    logger.exception('Something terrible just happened', extra={
+        'message_id': True,  # Generate message ID automatically.
+        'context': {
+            'FIELD1': 'one',
+            'FIELD2': 'two',
+        }
+    }, stack_info=True)
+```

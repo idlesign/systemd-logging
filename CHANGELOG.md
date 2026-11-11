@@ -1,34 +1,21 @@
-systemd-logging changelog
-=========================
+# systemd-logging changelog
 
+### v1.0.1 [2022-01-28]
+* ** Prevent segfaults for values having format placeholders like %s (see #6).
 
-v1.0.1 [2022-01-28]
--------------------
-* Prevent segfaults for values having format placeholders like %s (see #6).
+### v1.0.0 [2021-07-14]
+* ** Celebrating 1.0.0.
+* ** CtypedException is now hidden to improve plugability (see #5).
 
+### v0.3.1 [2021-01-25]
+* ** Proper % handling in messages (see #3).
 
-v1.0.0 [2021-07-14]
--------------------
-* Celebrating 1.0.0.
-* CtypedException is now hidden to improve plugability (see #5).
+### v0.3.0 [2020-01-28]
+* ++ init_systemd_logging() now tries to detect systemd and returns boolean.
 
+### v0.2.0 [2019-10-15]
+* ++ Added an option to set SYSLOG_IDENTIFIER.
+* ** Removed PROCESS_ID field in favor of _PID.
 
-v0.3.1 [2021-01-25]
--------------------
-* Proper % handling in messages (see #3).
-
-
-v0.3.0 [2020-01-28]
--------------------
-+ init_systemd_logging() now tries to detect systemd and returns boolean.
-
-
-v0.2.0 [2019-10-15]
--------------------
-+ Added an option to set SYSLOG_IDENTIFIER.
-* Removed PROCESS_ID field in favor of _PID.
-
-
-v0.1.0 [2019-10-14]
--------------------
-+ Basic functionality.
+### v0.1.0 [2019-10-14]
+* ++ Basic functionality.

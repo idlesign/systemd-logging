@@ -2,7 +2,6 @@ import logging
 import os
 import syslog
 import uuid
-from typing import Optional
 
 from .backend_ctyped import send, send_stub
 
@@ -15,7 +14,7 @@ PRIORITY_MAP = {
 }
 
 
-def log_message(*, level: int, msg: str, context: Optional[dict] = None) -> bool:
+def log_message(*, level: int, msg: str, context: dict | None = None) -> bool:
     """Sends a message to systemd.
 
     .. warning:: Low level function. You may want to
@@ -154,7 +153,7 @@ def check_for_systemd() -> bool:
     return (send is not send_stub) and bool(os.environ.get('INVOCATION_ID'))  # Works with systemd v232+
 
 
-def init_systemd_logging(*, logger: Optional[logging.Logger] = None, syslog_id: str = '') -> bool:
+def init_systemd_logging(*, logger: logging.Logger | None = None, syslog_id: str = '') -> bool:
     """Initializes logging to send log messages to systemd.
 
     Returns boolean indicating initialization went fine (see also `check_for_systemd()`).
