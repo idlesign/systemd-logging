@@ -41,6 +41,7 @@ select = [
 ]
 
 ignore = [
+    "BLE001",
     "I001",
     "UP006",
     "UP007",
