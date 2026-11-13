@@ -29,6 +29,7 @@ def raiseme():
 
 def test_basic(monkeypatch):
 
+    monkeypatch.delenv("JOURNAL_STREAM", raising=False)
     os.environ['INVOCATION_ID'] = ''
 
     assert not init_systemd_logging(syslog_id='logtest')
