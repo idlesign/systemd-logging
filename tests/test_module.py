@@ -2,7 +2,7 @@ import logging
 import os
 from sys import version_info
 
-from systemdlogging.toolbox import init_systemd_logging
+from systemdlogging.toolbox import check_for_systemd, init_systemd_logging
 
 LINE_NO = '19' if version_info >= (3, 8) else '25'
 
@@ -75,3 +75,21 @@ def test_basic(monkeypatch):
     assert entry['MESSAGE_ID']
     assert entry['FIELD1'] == 'one'
     assert entry['FIELD2'] == 'two'
+
+
+def test_check_journal_stream(monkeypatch):
+    monkeypatch.setattr("systemdlogging.toolbox.send", lambda *args: 0)
+    monkeypatch.setenv("INVOCATION_ID", "dummy-invocation-id")
+
+    monkeypatch.setenv("JOURNAL_STREAM", "1:2")  # A mismatching stream identifier.
+
+    assert not check_for_systemd()
+
+    stat = os.fstat(1)
+    monkeypatch.setenv("JOURNAL_STREAM", f"{stat.st_dev}:{stat.st_ino}")
+
+    assert check_for_systemd()
+
+    monkeypatch.delenv("JOURNAL_STREAM")
+
+    assert check_for_systemd()

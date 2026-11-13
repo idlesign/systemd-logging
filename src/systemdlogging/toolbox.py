@@ -150,7 +150,20 @@ def check_for_systemd() -> bool:
     is connected to journald).
 
     """
-    return (send is not send_stub) and bool(os.environ.get('INVOCATION_ID'))  # Works with systemd v232+
+    if send is send_stub:
+        return False
+
+    journal_stream = os.environ.get("JOURNAL_STREAM")  # systemd v231+
+
+    if journal_stream:
+        # Output streams might have been replaced by a wrapping process,
+        # so verify that stdout/stderr are still connected to the journal.
+        return any(
+            f"{stat.st_dev}:{stat.st_ino}" == journal_stream
+            for stat in (os.fstat(fd) for fd in (1, 2))
+        )
+
+    return bool(os.environ.get("INVOCATION_ID"))  # Works with systemd v232+
 
 
 def init_systemd_logging(*, logger: logging.Logger | None = None, syslog_id: str = '') -> bool:
