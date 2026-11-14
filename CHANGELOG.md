@@ -1,6 +1,6 @@
 # systemd-logging changelog
 
-### Unreleased
+### v1.0.2 [2026-11-14]
 * ** check_for_systemd() now verifies JOURNAL_STREAM against the actual stdout/stderr descriptors, falling back to INVOCATION_ID (close #1).
 
 ### v1.0.1 [2022-01-28]
